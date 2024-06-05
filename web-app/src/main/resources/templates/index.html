@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Webアプリケーション</title>
+</head>
+
+<body>
+  <div>
+    <h1>Index画面</h1>
+
+    <br>
+    <p th:text="${message}"></p>
+    <p th:text="${#temporals.format(datetime,'yyyy/MM/dd HH:mm:ss')}"></p>
+
+    <a th:href="@{/user/list}" class="btn btn-primary">ユーザー情報一覧はこちら</a>
+    <br>
+
+  </div>
+</body>
+
+</html>
+
+
