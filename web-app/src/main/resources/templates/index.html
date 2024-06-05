@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Webアプリケーション</title>
-</head>
 
+<head th:replace="~{common/head :: head_fragment(scripts = ~{::script}, links = ~{::link})}">
+</head>
 <body>
-  <div>
+  <div class="container">
+
     <h1>Index画面</h1>
 
     <br>
@@ -21,5 +19,6 @@
 </body>
 
 </html>
+
 
 
