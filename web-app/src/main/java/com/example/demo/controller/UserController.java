@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import java.time.LocalDateTime; // 追加
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
@@ -19,7 +20,6 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/user/list")
-	
 	public String displayList(Model model) {
 		
 		List<User> userList=userService.searchAll();
@@ -29,18 +29,29 @@ public class UserController {
 	}
 
 	@GetMapping("/user/{id}")
-	
 	public String displayDetail(@PathVariable Long id, Model model) {
 
-		model.addAttribute("id", id);
-		model.addAttribute("name", "サンプル太郎");
-		model.addAttribute("address", "東京都新宿区1-2-3");
-		model.addAttribute("phone", "090-1234-1234");
-		model.addAttribute("updateDate", LocalDateTime.now());
-		model.addAttribute("createDate", LocalDateTime.now());
-		model.addAttribute("deleteDate", null);
+		User user = userService.search(id);
+		model.addAttribute("user", user);
 
 		return "user/detail";
 	}
 
+	@GetMapping("/user/add")
+	public String displayAdd(Model model) {
+
+		User user = new User();
+		model.addAttribute("user", user);
+
+		return "user/add";
+	}
+
+	@PostMapping("/user/create")
+	public String createUser(User user, Model model) {
+
+		userService.createUser(user);
+
+		return "redirect:/user/list";
+	}
 }
+
