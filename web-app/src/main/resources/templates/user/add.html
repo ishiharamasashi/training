@@ -10,24 +10,30 @@
 
     <form th:object="${user}">
       <div class="form-group mt-2">
-        <label class="form-label" for="inputId">ID:</label>
+        <label class="form-label" for="inputId">ID:</label> 
         <input type="text" class="form-control" id="inputId" th:field="*{id}" disabled>
       </div>
       <div class="form-group mt-2">
-        <label class="form-label" for="inputName">名前:</label>
-        <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="サンプル太郎">
+                <label class="form-label" for="inputName">
+                名前:
+                 <span class="badge bg-danger">必須</span>
+        </label>
+        <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="サンプル太郎" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{name}"></div>
       </div>
       <div class="form-group mt-2">
-        <label class="form-label" for="inputAddress">住所:</label>
-        <input type="text" class="form-control" id="inputAddress" th:field="*{address}" placeholder="東京都新宿区1-2-3歌舞伎町ビル10F">
+        <label class="form-label" for="inputAddress">住所:</label> 
+        <input type="text" class="form-control" id="inputAddress" th:field="*{address}" placeholder="東京都新宿区1-2-3歌舞伎町ビル10F" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{address}"></div>
       </div>
       <div class="form-group mt-2">
-        <label class="form-label" for="inputPhone">電話番号:</label>
-        <input type="text" class="form-control" id="inputPhone" th:field="*{phone}" placeholder="0120-1234-1234">
+        <label class="form-label" for="inputPhone">電話番号:</label> 
+        <input type="text" class="form-control" id="inputPhone" th:field="*{phone}" placeholder="0120-1234-1234" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{phone}"></div>
       </div>
       <br>
       <div class="text-center">
-        <a th:href="@{/user/list}" class="col-2 btn btn-secondary">一覧に戻る</a>
+        <a th:href="@{/user/list}" class="col-2 btn btn-secondary">一覧に戻る</a> 
         <input type="submit" th:formaction="@{/user/create}" th:formmethod="post" class="col-2 btn btn-primary" value="登録する">
       </div>
     </form>
@@ -36,3 +42,4 @@
 
 </body>
 </html>
+
