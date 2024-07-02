@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
+import jakarta.persistence.OptimisticLockException;
+
 @Controller
 public class UserController {
 	
@@ -67,6 +69,33 @@ public class UserController {
 		userService.deleteUser(id);
 
 		return "redirect:/user/list";
+	}
+	
+
+	@GetMapping("/user/{id}/edit")
+	public String displayEdit(@PathVariable Long id, Model model) {
+
+		User user = userService.search(id);
+		model.addAttribute("user", user);
+
+		return "user/edit";
+	}
+
+	@PostMapping("/user/update")
+	public String updateUser(@Validated User user, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "user/edit";
+		}
+
+		try {
+			userService.updateUser(user);
+			return "redirect:/user/list";
+
+		}catch (OptimisticLockException e) {
+			model.addAttribute("message", e.getMessage());
+			return "user/edit";
+		}
 	}
 }
 
